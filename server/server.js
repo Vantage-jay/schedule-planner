@@ -19,6 +19,16 @@ app.get('/api/health', (req, res) => {
 // app.use('/api/calendar', calendarRoutes)
 // app.use('/api/ai', aiRoutes)
 
+// ... after your API routes ...
+
+// 1. Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// 2. Handle any requests that don't match the ones above by sending back index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
